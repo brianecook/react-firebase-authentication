@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
 
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
 const SignUpPage = () => (
   <div>
-    <h1>SignUp</h1>
+    <h1>Sign Up</h1>
     <SignUpForm />
   </div>
 );
@@ -80,14 +81,14 @@ class SignUpFormBase extends Component {
           name="passwordOne"
           value={passwordOne}
           onChange={this.onChange}
-          type="text"
+          type="password"
           placeholder="Password"
         />
         <input
           name="passwordTwo"
           value={passwordTwo}
           onChange={this.onChange}
-          type="text"
+          type="password"
           placeholder="Confirm Password"
         />
         <button type="submit" disabled={isInvalid}>Sign Up</button>
@@ -105,7 +106,10 @@ const SignUpLink = () => (
   </p>
 );
 
-const SignUpForm = withRouter(withFirebase(SignUpFormBase));
+const SignUpForm = compose(
+  withRouter,
+  withFirebase,
+)(SignUpFormBase);
 
 export default SignUpPage;
 
